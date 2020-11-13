@@ -1,6 +1,6 @@
 # ECMAScript Logical Default Assignment
 
-A proposal for using the logical assignments `||=` and `??=` in default assignment in functions arguments and destructuring.
+A proposal for using the logical assignments `||=` and `??=` in default assignment in function arguments and destructuring.
 
 ## Status
 
