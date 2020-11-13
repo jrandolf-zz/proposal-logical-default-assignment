@@ -1,60 +1,86 @@
-# template-for-proposals
+# ECMAScript Logical Default Assignment
 
-A repository template for ECMAScript proposals.
+A proposal for using the logical assignments `||=` and `??=` in default assignment in functions arguments and destructuring.
 
-## Before creating a proposal
+# Examples
 
-Please ensure the following:
-  1. You have read the [process document](https://tc39.github.io/process-document/)
-  1. You have reviewed the [existing proposals](https://github.com/tc39/proposals/)
-  1. You are aware that your proposal requires being a member of TC39, or locating a TC39 delegate to "champion" your proposal
+```js
+// With proposal
+function example1_1(arg ??= "some default value") {}
+// Without proposal
+function example1_2(arg) {
+  arg = arg ?? "some default value"
+}
 
-## Create your proposal repo
+// With proposal
+function example2_1(arg ||= "some default value") {}
+// Without proposal
+function example2_2(arg) {
+  arg = arg || "some default value"
+}
 
-Follow these steps:
-  1.  Click the green ["use this template"](https://github.com/tc39/template-for-proposals/generate) button in the repo header. (Note: Do not fork this repo in GitHub's web interface, as that will later prevent transfer into the TC39 organization)
-  1.  Go to your repo settings “Options” page, under “GitHub Pages”, and set the source to the **main branch** under the root (and click Save, if it does not autosave this setting)
-      1. check "Enforce HTTPS"
-      1. On "Options", under "Features", Ensure "Issues" is checked, and disable "Wiki", and "Projects" (unless you intend to use Projects)
-      1. Under "Merge button", check "automatically delete head branches"
-<!--
-  1.  Avoid merge conflicts with build process output files by running:
-      ```sh
-      git config --local --add merge.output.driver true
-      git config --local --add merge.output.driver true
-      ```
-  1.  Add a post-rewrite git hook to auto-rebuild the output on every commit:
-      ```sh
-      cp hooks/post-rewrite .git/hooks/post-rewrite
-      chmod +x .git/hooks/post-rewrite
-      ```
--->
-  3.  ["How to write a good explainer"][explainer] explains how to make a good first impression.
+// With proposal
+(arg ??= "some default value") => {}
+// Without proposal
+(arg) => {
+  arg ??= "some default value"
+}
 
-      > Each TC39 proposal should have a `README.md` file which explains the purpose
-      > of the proposal and its shape at a high level.
-      >
-      > ...
-      >
-      > The rest of this page can be used as a template ...
+// With proposal
+(arg ||= "some default value") => {}
+// Without proposal
+(arg) => {
+  arg ||= "some default value"
+}
 
-      Your explainer can point readers to the `index.html` generated from `spec.emu`
-      via markdown like
+// With proposal
+const [arg ??= 0] = [null];
+// Without Proposal
+let [arg] = [];
+const arg = arg ?? 0;
 
-      ```markdown
-      You can browse the [ecmarkup output](https://ACCOUNT.github.io/PROJECT/)
-      or browse the [source](https://github.com/ACCOUNT/PROJECT/blob/HEAD/spec.emu).
-      ```
+// With proposal
+const { test ??= 0 } = { test: null };
+// Without proposal
+let { test: _test } = { test: null };
+const test = _test ?? 0;
 
-      where *ACCOUNT* and *PROJECT* are the first two path elements in your project's Github URL.
-      For example, for github.com/**tc39**/**template-for-proposals**, *ACCOUNT* is "tc39"
-      and *PROJECT* is "template-for-proposals".
+// With proposal
+const [arg ||= 0] = [""];
+// Without Proposal
+let [arg] = [];
+const arg = arg || 0;
+
+// With proposal
+const { test ||= 0 } = { test: "" };
+// Without proposal
+let { test: _test } = { test: "" };
+const test = _test || 0;
+
+// Without proposal
+const example = ({} = {}, arg) => console.log(arg);
+example(null, 1) // ! Error
+example(undefined, 1) // 1
+// With proposal
+const example = ({} ??= {}, arg) => console.log(arg);
+example(null, 1) // 1
+example(undefined, 1) // 1
+```
+
+# Motivation
+
+Along with the motivation provided in the [logical assignment proposal](https://github.com/tc39/proposal-logical-assignment) and the above examples, this further minimizes the syntax for well-known patterns such as function options:
+```js
+function search({
+    depth ||= 1,
+    limit ||= 1,
+   } ??= {}) {
+}
+search({ depth: 0 }) // depth and limit are locally scoped in the function as 1
+```
+This could be particularly useful for unused parameters as given in the final example.
 
 
-## Maintain your proposal repo
+# Semantics
 
-  1. Make your changes to `spec.emu` (ecmarkup uses HTML syntax, but is not HTML, so I strongly suggest not naming it ".html")
-  1. Any commit that makes meaningful changes to the spec, should run `npm run build` and commit the resulting output.
-  1. Whenever you update `ecmarkup`, run `npm run build` and commit any changes that come from that dependency.
-
-  [explainer]: https://github.com/tc39/how-we-work/blob/HEAD/explainer.md
+We defer the reader to the semantics provided in the [logical assignment proposal](https://github.com/tc39/proposal-logical-assignment).
