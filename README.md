@@ -49,14 +49,14 @@ function example2_2(arg) {
 // With proposal
 const [arg ??= 0] = [null];
 // Without Proposal
-let [arg] = [];
-const arg = arg ?? 0;
+let [_arg] = [];
+const arg = _arg ?? 0;
 
 // With proposal
 const [arg ||= 0] = [""];
 // Without Proposal
-let [arg] = [];
-const arg = arg || 0;
+let [_arg] = [];
+const arg = _arg || 0;
 ```
 
 #### Objects
