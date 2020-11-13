@@ -68,10 +68,10 @@ let { test: _test } = { test: null };
 const test = _test ?? 0;
 
 // With proposal
-const { test ||= 0 } = { test: "" };
+const { test ||= "default" } = { test: "" };
 // Without proposal
 let { test: _test } = { test: "" };
-const test = _test || 0;
+const test = _test || "default";
 ```
 
 ## Motivation
