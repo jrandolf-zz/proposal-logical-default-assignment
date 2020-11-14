@@ -92,7 +92,7 @@ function search({
 }
 search({ depth: 0 }) // depth and limit are locally scoped in the function as 1
 ```
-Currently, there is no simple, straightforward method for writing synonymous functionality for complicated objects. In fact, the current babel implementation requires reusing the logic from the [destructuring transform](https://babeljs.io/docs/en/babel-plugin-transform-destructuring) in [babe](https://babeljs.io/) with a small abstraction in assignment patterns.
+Currently, there is no simple, straightforward method for writing synonymous functionality for complicated objects. In fact, the current babel implementation requires reusing the logic from the [destructuring transform](https://babeljs.io/docs/en/babel-plugin-transform-destructuring) in [babel](https://babeljs.io/) with a small abstraction in assignment patterns.
 
 The following is a pathological example:
 ```js
