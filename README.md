@@ -8,6 +8,27 @@ Author: [jun-sheaf](github.com/jun-sheaf)
 
 ## Use Cases
 
+### Definitive Example
+
+```js
+// With proposal
+const example = ({ name ||= "Point", loc: [x ??= 0, y ??= 0] ??= [] } ??= {}) => ({
+  [name]: [x, y]
+});
+
+// Without proposal
+const example = (_arg) => {
+  let { name: _name, loc: _loc } = _arg ?? {};
+  let [_x, _y] = _loc ?? [];
+  let x = _x ?? 0;
+  let y = _y ?? 0;
+  let name = _name || "test";
+  return ({
+    [name]: [x, y]
+  })
+}
+```
+
 ### Functions
 ```js
 /**
