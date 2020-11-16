@@ -16,7 +16,7 @@ Author: [jun-sheaf](github.com/jun-sheaf)
 function example1(arg ??= "some default value") {}
 function example2(arg ||= "some default value") {}
 var example3 = (arg ??= "some default value") => {}
-var example4 = (arg ??= "some default value") => {}
+var example4 = (arg ||= "some default value") => {}
 
 /**
  * Without proposal
@@ -30,7 +30,7 @@ function example2(arg) {
 var example3 = (arg ??= "some default value") => {
   arg = arg ?? "some default value"
 }
-var example4 = (arg ??= "some default value") => {
+var example4 = (arg ||= "some default value") => {
   arg = arg || "some default value"
 }
 ```
@@ -59,7 +59,7 @@ const arg2 = _arg2 || 0;
 
 const [arg3, arg4] = [""];
 const arg3 = _arg3 || 0;
-const arg4 = _arg4 || arg3
+const arg4 = _arg4 ?? arg3
 ```
 
 #### Objects
