@@ -8,7 +8,7 @@ Current stage: -1
 
 # Champions
 
-- Randolf J. ([@jrandolf](github.com/jrandolf))
+- Randolf J. ([@jrandolf](https://github.com/jrandolf))
 
 ## Use Cases
 
